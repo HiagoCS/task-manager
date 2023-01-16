@@ -5,7 +5,7 @@
 
         <div class="form">
             <div class="input-box">
-            <span class="label">Nome</span>
+            <span class="label">E-mail</span>
             <input type="text">
             </div>
             <div class="input-box">
