@@ -1,0 +1,33 @@
+@import '@/assets/scss/_main';
+.main{
+    position: fixed;
+    right: 0vw;
+    bottom:0vh;
+    height: 40vw;
+    width: 100vw;
+
+    background-color: white;
+}
+.header{
+    position: fixed;
+    top: 0;
+    right: -1vw;
+    width: 100vw;
+    height: 15vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .logo{
+        font-size: 25px;
+    }
+    .links{
+        width: 50vw;
+        display: flex;
+        justify-content: space-around;
+        text{
+            padding: 0 1vh 0 1vh;
+        }
+    }
+}
