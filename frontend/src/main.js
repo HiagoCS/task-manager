@@ -3,10 +3,10 @@ import App from './App.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 
 //Pages
-import LoginComponent from './components/pages/login/LoginComponent.vue';
+import CreateUserComponent from './components/pages/user/createUser/CreateUserComponent.vue';
 
 const routes = [
-    {path:'/login', component:LoginComponent}
+    {path:'/new-user', component:CreateUserComponent}
 ]
 const router = createRouter({
     history:createWebHistory(),
