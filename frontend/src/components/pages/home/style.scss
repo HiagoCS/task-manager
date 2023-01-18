@@ -3,17 +3,23 @@
     position: fixed;
     right: 0vw;
     bottom:0vh;
-    height: 40vw;
+    height: 90vh;
     width: 100vw;
 
     background-color: white;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 .header{
     position: fixed;
     top: 0;
     right: -1vw;
     width: 100vw;
-    height: 15vh;
+    height: 10vh;
 
     display: flex;
     flex-direction: row;
@@ -22,12 +28,21 @@
     .logo{
         font-size: 25px;
     }
-    .links{
+    .nav-link{
         width: 50vw;
         display: flex;
         justify-content: space-around;
-        text{
-            padding: 0 1vh 0 1vh;
+        .link{
+            display: flex;
+            flex-direction: column;
+            .title{
+                padding: 0 1vh 0 1vh;
+                font-size: 20px;
+                transition: 0.1s;
+                &:hover{
+                    color: white;
+                }
+            }
         }
     }
 }
