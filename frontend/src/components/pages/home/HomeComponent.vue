@@ -2,7 +2,8 @@
 <template>
     <main>
         <div class="main">
-            <ListUser></ListUser>
+            <ListTask v-if="$route.params.option === 'tasks'"></ListTask>
+            <ListUser v-if="$route.params.option === 'users'"></ListUser>
         </div>
         <div class="header">
             <div class="logo">
@@ -10,17 +11,19 @@
             </div>
             <div class="nav-link">
                 <div class="link">
-                    <text class="title">Usuários</text>
+                    <a href="/home/users" class="title">Usuários</a>
                 </div>
                 <div class="link">
-                    <text class="title">Tarefas</text>
+                    <a href="/home/tasks" class="title">Tarefas</a>
                 </div>
                 <div class="link">
-                    <text class="title">Ajuda</text>
+                    <a class="title">Ajuda</a>
                 </div>
             </div>
         </div>
     </main>
 </template>
 
+<script>
+</script>
 <style lang="scss" src="./style.scss" scoped></style>

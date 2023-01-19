@@ -6,9 +6,11 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Home from './components/pages/home/HomeComponent.vue';
 import CreateUserComponent from './components/pages/user/createUser/CreateUserComponent.vue';
 import ListUser from './components/pages/home/main-pages/listUsers/ListUserComponent.vue';
+import ListTask from './components/pages/home/main-pages/listTasks/ListTasksComponent.vue';
+
 
 const routes = [
-    {path:'/home', component:Home},
+    {path:'/home/:option', component:Home},
     {path:'/new-user', component:CreateUserComponent}
 ]
 const router = createRouter({
@@ -16,5 +18,5 @@ const router = createRouter({
     routes
 })
 
-createApp(App).component('ListUser', ListUser).use(router).mount('#app')
+createApp(App).component('ListUser', ListUser).component('ListTask', ListTask).use(router).mount('#app')
 

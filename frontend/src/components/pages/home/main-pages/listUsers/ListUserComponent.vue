@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div id="modal-usuario" class="modal-container">
+    <div class="modal-container">
         <div class="modal" >
             <a class="close-modal" @click="closeModal">X</a>
             <div class="modal-main">
