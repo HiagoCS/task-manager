@@ -12,12 +12,4 @@ class Users extends Model
 
     protected $table = 'usuario';
     protected $fillable = ['nome', 'senha'];
-
-    function insert(Request $reqs){
-    	Users::create([
-        	'nome' => 'Hiago',
-        	'senha' => '@senhaForte'
-    	]);
-    	echo "Sucesso!!";
-	}
 }
