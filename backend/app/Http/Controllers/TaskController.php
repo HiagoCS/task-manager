@@ -21,4 +21,15 @@ class TaskController extends Controller
 			return response()->json(["status" => "error", "msg" => "Erro no cadastro!"]);
 		}
     }
+
+    public function delete(Request $request){
+		$json = $request->json()->all();
+		$resp = Task::destroy($json['id']);
+		if($resp){
+			return response()->json(["status" => "sucesso", "msg" => "Tarefa Deletada com sucesso!"]);
+		}
+		else{
+			return response()->json(["status" => "error", "msg" => "Erro na exclusão!"]);
+		}
+	}
 }
