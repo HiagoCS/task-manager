@@ -29,3 +29,5 @@ Route::get('/task', "App\Http\Controllers\TaskController@index");
 Route::post('/task/new', "App\Http\Controllers\TaskController@insert");
 
 Route::delete('/task/delete', "App\Http\Controllers\TaskController@delete");
+
+Route::patch('/task/update', "App\Http\Controllers\TaskController@update");

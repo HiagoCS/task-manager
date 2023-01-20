@@ -32,4 +32,15 @@ class TaskController extends Controller
 			return response()->json(["status" => "error", "msg" => "Erro na exclusão!"]);
 		}
 	}
+
+    public function update(Request $request){
+        $json = $request->json()->all();
+        $resp = Task::find($json['id'])->update(["estado" => $json['update']]);
+        if($resp){
+			return response()->json(["status" => "sucesso", "msg" => "Estado da tarefa alterado com sucesso!"]);
+		}
+		else{
+			return response()->json(["status" => "error", "msg" => "Erro na alteração!"]);
+		}
+    }
 }
