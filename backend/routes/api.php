@@ -20,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/', "App\Http\Controllers\UserController@index");
 
-Route::post('/new-user', "App\Http\Controllers\UserController@insert");
+Route::post('user/new', "App\Http\Controllers\UserController@insert");
+
+Route::delete('user/delete', "App\Http\Controllers\UserController@delete");
