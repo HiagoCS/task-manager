@@ -11,25 +11,20 @@ class UserController extends Controller
     public function index(){
         return response()->json(Users::all());
     }
-
+	
 	//Insert one user
     public function insert(Request $request){
 		$json = $request->json()->all();
-		$resp = Users::create((array) $json);
-		if($resp){
-			return response()->json(["status" => "sucesso", "msg" => "Usuário cadastrado com sucesso!"]);
-		}
-		else{
-			return response()->json(["status" => "error", "msg" => "Erro no cadastro!"]);
+		if(Users::create((array) $json)){
+			return response()->json(["status" => "success", "msg" => "Usuário '".$json['nome']."' cadastrado com sucesso!"]);
 		}
     }
 
 	//delete specific user
-	public function delete(Request $request){
-		$json = $request->json()->all();
-		$resp = Users::destroy($json['id']);
+	public function delete($id){
+		$resp = Users::destroy($id);
 		if($resp){
-			return response()->json(["status" => "sucesso", "msg" => "Usuário Deletado com sucesso!"]);
+			return response()->json(["status" => "success", "msg" => "Usuário Deletado com sucesso!"]);
 		}
 		else{
 			return response()->json(["status" => "error", "msg" => "Erro na exclusão!"]);
