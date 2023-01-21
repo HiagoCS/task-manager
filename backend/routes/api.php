@@ -22,9 +22,11 @@ Route::get('/user', "App\Http\Controllers\UserController@index");
 
 Route::post('user/new', "App\Http\Controllers\UserController@insert");
 
-Route::delete('user/delete', "App\Http\Controllers\UserController@delete");
+Route::delete('user/delete/{id}', "App\Http\Controllers\UserController@delete");
 
 Route::get('/task', "App\Http\Controllers\TaskController@index");
+
+Route::get('/task/status/{id}', "App\Http\Controllers\TaskController@status");
 
 Route::post('/task/new', "App\Http\Controllers\TaskController@insert");
 
