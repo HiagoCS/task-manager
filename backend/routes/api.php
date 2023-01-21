@@ -30,6 +30,6 @@ Route::get('/task/status/{id}', "App\Http\Controllers\TaskController@status");
 
 Route::post('/task/new', "App\Http\Controllers\TaskController@insert");
 
-Route::delete('/task/delete', "App\Http\Controllers\TaskController@delete");
+Route::delete('/task/delete/{id}', "App\Http\Controllers\TaskController@delete");
 
-Route::patch('/task/update', "App\Http\Controllers\TaskController@update");
+Route::patch('/task/update/{id}/{estado}', "App\Http\Controllers\TaskController@update");
