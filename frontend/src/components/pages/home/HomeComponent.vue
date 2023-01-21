@@ -1,9 +1,10 @@
 <template>
     <main>
         <div class="main">
-            <ListTask v-if="$route.params.option === 'tasks'"></ListTask>
-            <ListUser v-if="$route.params.option === 'users'" v-for="user in users" :key="user.id" :name="user.nome" :id="user.id"></ListUser>
-            <addUser></addUser>
+            <ListTask v-if="$route.params.option === 'task'"></ListTask>
+            <ListUser v-if="$route.params.option === 'user'" v-for="user in users" :key="user.id" :name="user.nome" :id="user.id"></ListUser>
+            <AddItem :name="'/new-'+$route.params.option"></AddItem>
+
           </div>
         <div class="header">
             <div class="logo">
@@ -11,10 +12,10 @@
             </div>
             <div class="nav-link">
                 <div class="link">
-                    <a href="/users" class="title">Usuários</a>
+                    <a href="/user" class="title">Usuários</a>
                 </div>
                 <div class="link">
-                    <a href="/tasks" class="title">Tarefas</a>
+                    <a href="/task" class="title">Tarefas</a>
                 </div>
                 <div class="link">
                     <a class="title">Ajuda</a>
@@ -35,11 +36,11 @@ import User from '../../services/users';
     },
     async mounted(){
       const pathname = new URL(location.href).pathname
-      if(pathname === '/' || pathname === '/users'){
+      if(pathname === '/' || pathname === '/user'){
         User.index().then(({data}) =>{
           if(data.length > 0){
              this.users = data;
-             this.$router.push('/users');
+             this.$router.push('/user');
           }
           else if(data.length == 0){
             this.$router.push('/new-user');

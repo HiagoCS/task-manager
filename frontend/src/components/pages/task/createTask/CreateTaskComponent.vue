@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <br>
-        <h1 class="titulo">Nova Tarefa</h1>
+        <h1 class="titulo">Nova Tarefa:</h1>
 
         <div class="form">
             <div class="input-box">
@@ -10,7 +10,7 @@
             </div>
             <div class="txtarea-box">
                 <span class="label">Descrição</span>
-                <textarea></textarea>
+                <textarea id="description"></textarea>
             </div>
             <div class="cb-box">
                 <span class="label">Estado</span>
@@ -23,7 +23,7 @@
             </div>
             <div class="users-box" @click="showModal">
                 <div class="main">
-                    <text>+ Adicionar Usuário +</text>
+                    <text id="user-title">+ Adicionar Usuário +</text>
                 </div>
             </div>
             <button id="submit" @click="insert()">Criar</button>
@@ -37,10 +37,8 @@
             </div>
             <br>
             <div class="modal-main">
-                <ul class="user-list">
-                    <li>Hiago Costa Santos</li>
-                    <li>Guilherme Xaves</li>
-                    <li>Paçoca MC</li>
+                <ul class="user-list" v-for="user in userList" :key="user.id" >
+                    <li :id="user.id" @click="saveUser($event)">{{user.nome}}</li>
                 </ul>
             </div>
             <br>
@@ -54,28 +52,59 @@
 
 <script>
     import User from '../../../services/users';
+    import Task from '../../../services/tasks';
     export default{
+        computed:{
+            getValue(){
+                return this.userList;
+            }
+        },
+        data:() => {
+                return{
+                    "userList":[],
+                    "userSelected":[]
+                }
+             },
         methods:{
-            showModal(){
-                let modal = document.querySelector('.modal-container');
-
-                modal.style.display = 'flex';
-            },
-            closeModal(){
-                let modal = document.querySelector('.modal-container');
-
-                modal.style.display = 'none';
-            },
             async insert(){
-                const response = await User.userInsert({'nome':document.querySelector("#name").value, 'senha':document.querySelector("#pass").value})
+                console.log(document.querySelector('#user-title').className);
+                const response = await Task.taskInsert(
+                    {'titulo':this.userSelected.nome, 
+                    'descricao':document.querySelector("#description").value,
+                    'estado':document.querySelector('.check-btn').value,
+                    'user_id':parseInt(this.userSelected.id)});
                 if(response){
                     this.$swal('Sucesso', response.msg, response.status);
-                    this.$router.push('/');
+                    this.$router.push('/task');
                 }
                 else{
                     this.$swal('Error', "ERR_BAD_RESPONSE", 'error');
                     
                 }
+            },
+            saveUser(event){
+                console.log("Save");
+                this.userSelected = {
+                    id:event.target.id,
+                    nome:event.target.innerHTML
+                }
+                const box = document.querySelector("#user-title");
+                box.innerHTML = `<div class="${this.userSelected.id}" id='user-title'><img src='../../../../assets/images/defaul-user.png'><text>${this.userSelected.nome}<text/></div>`;
+                this.closeModal();
+            },
+            showModal(){
+                let modal = document.querySelector('.modal-container');
+
+                modal.style.display = 'flex';
+                User.index()
+                    .then(response =>{
+                        this.userList = response.data;
+                    }).catch(err =>console.log(err));
+            },
+            closeModal(){
+                let modal = document.querySelector('.modal-container');
+
+                modal.style.display = 'none';
             },
             checked(event){
                 let others = document.querySelectorAll(".check-btn");
