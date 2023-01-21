@@ -26,12 +26,8 @@ class TaskController extends Controller
 
     public function insert(Request $request){
         $json = $request->json()->all();
-        $resp = Task::create((array) $json);
-        if($resp){
-			return response()->json(["status" => "sucesso", "msg" => "Tarefa cadastrada com sucesso!"]);
-		}
-		else{
-			return response()->json(["status" => "error", "msg" => "Erro no cadastro!"]);
+		if(Task::create((array) $json)){
+			return response()->json(["status" => "success", "msg" => "Tarefa cadastrada com sucesso!"]);
 		}
     }
 
