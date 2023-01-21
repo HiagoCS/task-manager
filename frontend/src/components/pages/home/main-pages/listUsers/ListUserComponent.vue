@@ -1,30 +1,25 @@
 <template>
     <div class="main-component">
-        <div class="user-box" @click="showModal">
-            <img src="../../../../../assets/images/defaul-user.png" alt="">
+        <div :id="id" class="user-box" @click="showModal($event)">
+            <img src="../../../../../assets/images/defaul-user.png" :id="id" @click="showModal($event)">
+            
             <br>
-            <div class="status">
-                <text style="color:red">Pendente: 0</text>
-                <text style="color:blue">Em Execução: 0</text>
-                <text style="color:green">Finalizada: 0</text>
+            <div class="title">
+                <text>{{ name }}</text>
             </div>
         </div>
     </div>
-    <div class="modal-container">
+    <div class="modal-container" :id="id">
         <div class="modal" >
-            <a class="close-modal" @click="closeModal">X</a>
+            <a class="close-modal" :id="id" @click="closeModal">X</a>
             <div class="modal-main">
                 <img src="../../../../../assets/images/defaul-user.png" alt=""/>
-                <div class="status">
-                    <text style="color:red">Pendente: 0</text>
-                    <text style="color:blue">Em Execução: 0</text>
-                    <text style="color:green">Finalizada: 0</text>
-                </div>
+                <text>{{name}}</text>
             </div>
             <br>
             <div class="modal-footer">
-                <button>Excluir</button>
-                <button>Exibir Tarefas</button>
+                <button :id="id" @click="deleteUser($event)">Excluir</button>
+                <button :id="id">Exibir Tarefas</button>
             </div>
         </div>
     </div>
@@ -33,18 +28,39 @@
 <style lang="scss" src="./style.scss" scoped></style>
 
 <script>
+import User from '../../../../services/users';
     export default{
-        name:'Modal',
+        name:'ListUser',
+        props:['name', 'id'], 
         methods:{
-            showModal(){
-                let modal = document.querySelector('.modal-container');
+            showModal(event){
+                let modal = document.querySelectorAll(`.modal-container`)
+                modal.forEach(item =>{
+                    if(item.id == event.target.id)
+                        return modal = item;
+                })
 
                 modal.style.display = 'flex';
             },
-            closeModal(){
-                let modal = document.querySelector('.modal-container');
+            closeModal(event){
+                let modal = document.querySelectorAll(`.modal-container`)
+                modal.forEach(item =>{
+                    if(item.id == event.target.id)
+                        return modal = item;
+                })
 
                 modal.style.display = 'none';
+            },
+            async deleteUser(event){
+                const response = await User.userDelete(event.target.id);
+                if(response){
+                    this.$router.push('/');
+                    document.location.reload();
+                }
+                else{
+
+                }
+                
             }
         }
     }

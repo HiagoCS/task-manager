@@ -1,9 +1,9 @@
 @import '@/assets/scss/_main';
-*{
-    overflow: hidden;
-}
-body{
 
+body{
+    .swal2-success-ring{
+        overflow: hidden;
+    }
     .main{
         height: 70vh;
         width: 50vw;
