@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tarefa', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descricao');
+            $table->longtext('descricao');
             $table->string('estado');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('usuario');
