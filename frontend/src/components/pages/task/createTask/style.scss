@@ -1,0 +1,223 @@
+@import '@/assets/scss/_main';
+
+body{
+    .swal2-success-ring{
+        overflow: hidden;
+    }
+    .main{
+        height: 85vh;
+        width: 40vw;
+        background-color: white;
+        border-radius: 5%;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .form{
+            height: 100%;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:space-evenly;
+            
+            .input-box{
+        
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-content: center;
+                
+                input{
+                    height: 4vh;
+                    width: 80%;
+        
+                    border: none;
+                    border-bottom: solid 1px black;
+        
+                    &:focus{
+                        border: none;
+                    }
+                }
+                .label{
+                    font-size: 20px;
+                }
+            }
+            .cb-box{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .label{
+                    font-size: 20px;
+                }
+                .check-btn-box{
+                    display: flex;
+                    flex-direction: row;
+                    width: 80%;
+                    justify-content: space-between;
+                    align-items: center;
+                    .check-btn{
+                        height: 5vh;
+                        width: 25%;
+                        border: none;
+                        border-radius: 5px;
+                        background: none;
+                        &.checked{
+                            background-color: #3ece75;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+            .txtarea-box{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .label{
+                    font-size: 20px;
+                }
+                textarea{
+                    resize: none;
+                    width: 70%;
+                    height: 20vh;
+                }
+            }
+            .users-box{
+                cursor: pointer;
+                width: 90%;
+                height: 9vh;
+                display: flex;
+                justify-content: center;
+                .main{
+                    display: flex;
+                    justify-content: center;
+                    border-radius: 5px;
+                    width: 80%;
+                    height: 8vh;
+                    border: solid rgb(83, 83, 83) 1px;
+                    text{
+                        font-size: 20px;
+                    }
+                }
+                transition: 0.2s;
+                &:hover{
+                    width: 100%;
+                    height: 10vh;
+                    .main{
+                        width: 90%;
+                        height: 9vh;
+                    }
+                }
+            }
+            #submit{
+                height: 7vh;
+                width: 50%;
+                background-color: #4df78e;
+        
+                border: none;
+                border-radius: 5px;
+                box-shadow: 3px 8px 15px rgba(0, 0, 0, 0.3);
+                transition: 0.3s;
+                &:hover{
+                    font-size: 101%;
+                    width: 55%;
+                    height: 8vh;
+                    background-color: #72fda7;
+                }
+            }
+            
+        
+        }
+    }
+}
+
+.modal-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: animate;
+    animation-duration: 800ms;
+    @keyframes animate{
+        from{opacity:1}
+        from{opacity: 0;}
+    }
+    .modal{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        height: 80vh;
+        width: 30vw;
+        min-width: 300px;
+
+        padding: 40px;
+        border: 1px solid black;
+        border-radius: 5%;
+        position: relative;
+        .modal-header{
+            width: 100%;
+            input{
+                width: 90%;
+                height: 4vh;
+                border: none;
+                border-bottom: solid 1px black;
+            }
+        }
+        .modal-main{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            ul{
+                display: flex;
+                flex-direction: column;
+                width: 80%;
+                li{
+                    margin: 1vh 0 1vh 0;
+                    display:flex;
+                    align-items: center;
+                    height: 5vh;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom: #000000 solid 1px;
+                    cursor: pointer;
+                    transition: 0.2s;
+                    &:hover{
+                        background-color: #9cd9f1;
+                    }
+                }
+            }
+
+        }
+        .modal-footer{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            button{
+                height: 5vh;
+                width: 10vw;
+            }
+        }
+        .close-modal{
+            position: absolute;
+            border-radius: 50%;
+            font-weight: bold;
+            right: 2vw;
+            top: 2vh;
+            cursor: pointer;
+        }
+    }
+}
