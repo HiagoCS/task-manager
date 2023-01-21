@@ -11,6 +11,19 @@ class TaskController extends Controller
         return response()->json(Task::all());
     }
 
+    public function status($id){
+        $pendente = Task::where(['user_id' => $id, 'estado' => 'Pendente'])->get('estado');
+        $emAndamento = Task::where(['user_id' => $id, 'estado' => 'Em Andamento'])->get('estado');
+        $finalizado = Task::where(['user_id' => $id, 'estado' => 'Finalizado'])->get('estado');
+            
+            $return = [
+                'Pendente' => count($pendente),
+                'Em Andamento' => count($emAndamento),
+                'Finalizado' => count($finalizado)
+            ];
+            return response()->json($return);
+    }
+
     public function insert(Request $request){
         $json = $request->json()->all();
         $resp = Task::create((array) $json);
