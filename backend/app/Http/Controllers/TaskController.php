@@ -31,9 +31,8 @@ class TaskController extends Controller
 		}
     }
 
-    public function delete(Request $request){
-		$json = $request->json()->all();
-		$resp = Task::destroy($json['id']);
+    public function delete($id){
+		$resp = Task::destroy($id);
 		if($resp){
 			return response()->json(["status" => "sucesso", "msg" => "Tarefa Deletada com sucesso!"]);
 		}
@@ -42,9 +41,8 @@ class TaskController extends Controller
 		}
 	}
 
-    public function update(Request $request){
-        $json = $request->json()->all();
-        $resp = Task::find($json['id'])->update(["estado" => $json['update']]);
+    public function update($id, $update){
+        $resp = Task::find($id)->update(["estado" => $update]);
         if($resp){
 			return response()->json(["status" => "sucesso", "msg" => "Estado da tarefa alterado com sucesso!"]);
 		}
