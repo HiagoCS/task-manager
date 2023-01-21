@@ -9,5 +9,6 @@ class Task extends Model
 {
     use HasFactory;
     protected $table = 'tarefa';
+    protected  $primaryKey = 'id';
     protected $fillable = ['titulo', 'descricao', 'estado', 'user_id'];
 }

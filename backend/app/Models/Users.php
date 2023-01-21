@@ -11,5 +11,6 @@ class Users extends Model
     use HasFactory;
 
     protected $table = 'usuario';
+    protected  $primaryKey = 'id';
     protected $fillable = ['nome', 'senha'];
 }
