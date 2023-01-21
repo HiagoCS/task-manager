@@ -16,9 +16,9 @@
                 <span class="label">Estado</span>
                 <br>
                 <div class="check-btn-box">
-                    <button class="check-btn" value="pendente" @click="checked($event)">Pendente</button>
-                    <button class="check-btn " value="emAndamento" @click="checked($event)">Em andamento</button>
-                    <button class="check-btn " value="finalizado" @click="checked($event)">Finalizado</button>
+                    <button class="check-btn" value="Pendente" @click="checked($event)">Pendente</button>
+                    <button class="check-btn" value="Em Andamento" @click="checked($event)">Em andamento</button>
+                    <button class="check-btn" value="Finalizado" @click="checked($event)">Finalizado</button>
                 </div>
             </div>
             <div class="users-box" @click="showModal">
@@ -67,12 +67,13 @@
              },
         methods:{
             async insert(){
-                console.log(document.querySelector('#user-title').className);
+                console.log(document.querySelector('#title').value);
                 const response = await Task.taskInsert(
-                    {'titulo':this.userSelected.nome, 
+                    {'titulo':document.querySelector("#title").value, 
                     'descricao':document.querySelector("#description").value,
                     'estado':document.querySelector('.check-btn').value,
                     'user_id':parseInt(this.userSelected.id)});
+                console.log(response);
                 if(response){
                     this.$swal('Sucesso', response.msg, response.status);
                     this.$router.push('/task');
@@ -89,7 +90,7 @@
                     nome:event.target.innerHTML
                 }
                 const box = document.querySelector("#user-title");
-                box.innerHTML = `<div class="${this.userSelected.id}" id='user-title'><img src='../../../../assets/images/defaul-user.png'><text>${this.userSelected.nome}<text/></div>`;
+                box.innerHTML = `<div value="${this.userSelected.id}" id='user-title'><img src='../../../../assets/images/defaul-user.png'><text>${this.userSelected.nome}<text/></div>`;
                 this.closeModal();
             },
             showModal(){

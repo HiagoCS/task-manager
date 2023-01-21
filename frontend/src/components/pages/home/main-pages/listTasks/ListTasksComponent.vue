@@ -1,29 +1,32 @@
 <template>
     <div class="main-component">
-        <div class="task-box"  @click="showModal">
+        <div :id="id" class="task-box" @click="showModal($event)">
             <div class="task">
-                <img src="../../../../../assets/images/defaul-user.png" alt="">
-                <text>Titulo</text>
+                <img src="../../../../../assets/images/defaul-user.png" :id="id" @click="showModal($event)">
+                <text>{{titulo}}</text>
             </div>
             <div class="status">
-                <text>Concluido</text>
+                <text>{{ estado }}</text>
             </div>
         </div>
     </div>
-    <div class="modal-container">
+    <div class="modal-container" :id="id">
         <div class="modal">
-            <a class="close-modal" @click="closeModal">X</a>
+            <a class="close-modal" :id="id" @click="closeModal($event)">X</a>
             <div class="modal-main">
                 <img src="../../../../../assets/images/defaul-user.png" alt=""/>
                 <div class="task">
-                    <text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut egestas dignissim bibendum. Etiam sodales, purus in malesuada aliquam, quam risus varius leo, eu egestas nisl massa ac lectus. Etiam pellentesque, nulla nec tempus efficitur, justo nibh mattis turpis, eu maximus enim metus pellentesque lorem. Nam iaculis vulputate elementum. Fusce nec facilisis urna, quis aliquam lectus. Nunc vestibulum mi in quam auctor, vitae tristique ante fermentum. Pellentesque eget mauris quam.</text>
-                    <text>Concluido</text>
+                    <text>{{ descricao }}</text>
                 </div>
             </div>
             <br>
-            <div class="modal-footer">
-                <button>Excluir</button>
-                <text>Concluido</text>
+            <div class="modal-footer" @click="updateStatus($event)">
+                <button  :id="id" @click="deleteTask($event)">Excluir</button>
+                <div class="status-box" @click="checked($event)">
+                    <text class="status " id="Pendente">Pendente</text>
+                    <text class="status " id="EmAndamento">Em Andamento</text>
+                    <text class="status " id="Finalizado">Finalizado</text>
+                </div>
             </div>
         </div>
     </div>
@@ -32,18 +35,65 @@
 <style lang="scss" src="./style.scss" scoped></style>
 
 <script>
+import Task from '../../../../services/tasks';
     export default{
-        name:'Modal',
+        name:'ListTask',
+        props:['id', 'titulo', 'descricao', 'estado', 'user_id'],
+        mounted(){
+            let estado = this.estado;
+            if(this.estado.includes(" "))
+                estado = this.estado.replace(/\s/g, '');
+
+            let status = document.querySelector(`#${estado}`);
+            let others = document.querySelectorAll(".status");
+                others.forEach(item =>{
+                    if(item.classList.contains("active"))
+                        item.classList.remove("active");
+                       
+                });
+                status.classList.add("active");
+        },
         methods:{
-            showModal(){
-                let modal = document.querySelector('.modal-container');
+            showModal(event){
+                let modal = document.querySelectorAll(`.modal-container`)
+                modal.forEach(item =>{
+                    if(item.id == event.target.id)
+                        return modal = item;
+                });
 
                 modal.style.display = 'flex';
             },
-            closeModal(){
-                let modal = document.querySelector('.modal-container');
+            closeModal(event){
+                let modal = document.querySelectorAll(`.modal-container`)
+                modal.forEach(item =>{
+                    if(item.id == event.target.id)
+                        return modal = item;
+                })
 
                 modal.style.display = 'none';
+            },
+            async deleteTask(event){
+                const response = await Task.taskDelete(event.target.id);
+                if(response){
+                    this.$router.push('/');
+                    document.location.reload();
+                }
+            },
+            async updateStatus(event){
+                const response = await Task.taskUpdate(this.id, event.target.id);
+                if(response){
+                    this.$router.push('/task');
+                    document.location.reload();
+                }
+            },
+            checked(event){
+                let others = document.querySelectorAll(".status");
+                others.forEach(item =>{
+                    if(item.classList.contains("active"))
+                        item.classList.remove("active");
+                       
+                });
+                event.target.classList.add("active");
             }
         }
     }
